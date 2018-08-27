@@ -1,11 +1,21 @@
-{% extends 'base.html' %} 
-{% block body %}
+{% extends 'base.html' %} {% block body %}
 
-<div class="login-screen">
-	<div class="app-title">
-		<h1>Welcome Prashant</h1>
-		<a href="/logout">Logout</a>
+<form action="/search" method="POST">
+	<div class="test-url-screen">
+		<div class="login-screen">
+			<br>
+			<div class="app-title">
+				<h1>Enter Site URL</h1>
+			</div>
+			<br>
+			<div class="control-group">
+				<input type="text" class="test-url" value="" placeholder="test website URL" name="test-url">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+			</div>
+			<input type="submit" value="Go" class="btn btn-primary btn-large btn-block">
+			<br>
+		</div>
 	</div>
-</div>
+</form>
 
 {% endblock%}

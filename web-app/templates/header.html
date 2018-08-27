@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
 {% block header %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url_for('home')}}">Tutsplus - Jinja2 Tutorial</a>
+    <div class="navbar-header">
+        <img class="navbar-brand" src="./static/images/qainfotech_logo_new.jpg" alt="QA Infotech Logo"> {% if session['logged_in']
+        %}
+        <div class="welcome-banner">
+            <div> Welcome Prashant</div>
+            <a href="/logout">Logout</a>
         </div>
+
+        {% endif %}
     </div>
 </div>
 {% endblock%}

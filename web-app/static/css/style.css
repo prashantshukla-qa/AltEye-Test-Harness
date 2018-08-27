@@ -8,7 +8,7 @@
 
 body {
   font-family: Arial;
-  background-color: #3498DB;
+  background-color: #3498db;
   padding: 50px;
 }
 
@@ -18,9 +18,9 @@ body {
 }
 
 .login-screen {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 20px;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .app-title {
@@ -34,28 +34,29 @@ body {
 
 .control-group {
   margin-bottom: 10px;
+  align-content: center
 }
 
 input {
   text-align: center;
-  background-color: #ECF0F1;
+  background-color: #ecf0f1;
   border: 2px solid transparent;
   border-radius: 3px;
   font-size: 16px;
   font-weight: 200;
   padding: 10px 0;
   width: 250px;
-  transition: border .5s
+  transition: border 0.5s;
 }
 
 input:focus {
-  border: 2px solid #3498DB;
+  border: 2px solid #3498db;
   box-shadow: none;
 }
 
 .btn {
   border: 2px solid transparent;
-  background: #3498DB;
+  background: #3498db;
   color: #ffffff;
   font-size: 16px;
   line-height: 25px;
@@ -66,12 +67,12 @@ input:focus {
   box-shadow: none;
   transition: 0.25s;
   display: block;
-  width: 250px;
+  max-width: 250px;
   margin: 0 auto;
 }
 
 .btn:hover {
-  background-color: #2980B9;
+  background-color: #2980b9;
 }
 
 .login-link {
@@ -79,4 +80,37 @@ input:focus {
   color: #444;
   display: block;
   margin-top: 12px;
+}
+
+.navbar-brand {
+  /* max-width: 50%; */
+  max-height: 50px;
+  padding: 0px
+}
+
+.navbar {
+  background: whitesmoke;
+  padding: 8px;
+  max-height: 50%
+}
+
+.navbar-header {
+  width: 100%;
+  align-content: center
+}
+
+.welcome-banner {
+  float: right;
+  text-align: right;
+  padding: 0px
+}
+
+.test-url-screen {
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+.test-url {
+  width: 100%;
+  align-content: center
 }
