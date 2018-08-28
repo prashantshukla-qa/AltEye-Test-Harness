@@ -1,7 +1,21 @@
 {% extends 'base.html' %} {% block body %}
 
-<div>
-	
+<div class="test-url-screen">
+    <table>
+        <tr>
+            <th>Image Number</th>
+            <th>Image Details</th>
+        </tr>
+        {% for image, imagedetails in data.items() %}
+        <tr>
+            <td>{{ image }}</td>
+            <td style="text-align: left">
+                <p>IMAGE URL: {{ imagedetails.src }}</p>
+                <p>ALT TEXT: {{ imagedetails.alt }}</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
 {% endblock%}

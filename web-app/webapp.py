@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, session, request, flash, redirect
-from accessibility_app import launch_browser
+from accessibility_app.launch_browser import PageParser
 
 app = Flask(__name__)
 
@@ -26,8 +26,10 @@ def do_admin_login():
 
 @app.route('/search', methods=['POST'])
 def search_weburl():
-    launch_browser.launch_browser("chrome", request.form['test-url'])
-    return render_template('resultpage.html')
+
+    image_details = PageParser("chrome", request.form['test-url']) \
+        .getImagesAndAltText()
+    return render_template('resultpage.html', data=image_details)
 
 
 @app.route('/logout')
