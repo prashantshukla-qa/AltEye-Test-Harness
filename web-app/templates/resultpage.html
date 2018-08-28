@@ -8,7 +8,9 @@
         </tr>
         {% for image, imagedetails in data.items() %}
         <tr>
-            <td>{{ image }}</td>
+            <td>
+                <img height="50px" src="./static/images/retrieved_images/image_{{ image }}.jpg">
+            </td>
             <td style="text-align: left">
                 <p>IMAGE URL: {{ imagedetails.src }}</p>
                 <p>ALT TEXT: {{ imagedetails.alt }}</p>

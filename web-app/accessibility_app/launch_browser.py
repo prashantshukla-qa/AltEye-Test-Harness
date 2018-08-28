@@ -1,4 +1,5 @@
 from selenium import webdriver
+from urllib import request
 
 
 class PageParser:
@@ -23,4 +24,8 @@ class PageParser:
                     {"src": element.get_attribute("src"),
                      "alt": element.get_attribute("alt"),
                      "vicinity_text": element.find_element_by_xpath('..').text}
+                request.urlretrieve(image_details[str(index)]["src"],
+                                    "./static/images/" +
+                                    "retrieved_images/" +
+                                    "image_" + str(index) + ".jpg")
         return image_details
