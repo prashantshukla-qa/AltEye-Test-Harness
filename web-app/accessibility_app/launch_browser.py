@@ -21,5 +21,6 @@ class PageParser:
             if (element.is_displayed()):
                 image_details[str(index)] = \
                     {"src": element.get_attribute("src"),
-                     "alt": element.get_attribute("alt")}
+                     "alt": element.get_attribute("alt"),
+                     "vicinity_text": element.find_element_by_xpath('..').text}
         return image_details
