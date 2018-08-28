@@ -20,7 +20,7 @@ def do_admin_login():
         session['logged_in'] = True
         return redirect("/", code=302)
     else:
-        flash('wrong password!')
+        flash('wrong username or password!')
     return home()
 
 
