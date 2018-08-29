@@ -5,12 +5,10 @@ from urllib import request
 class PageParser:
 
     def __init__(self, browser, url):
-        chromedriver = "drivers/chromedriver"
-        self.driver = webdriver.Chrome(chromedriver)
+        self.driver = webdriver.Chrome()
         self.launch_browser(browser, url)
 
     def launch_browser(self, browser, url):
-
         if (url.startswith('http://') or url.startswith('https://')):
             self.driver.get(url)
         else:
@@ -26,7 +24,7 @@ class PageParser:
                      "alt": element.get_attribute("alt"),
                      "vicinity_text": element.find_element_by_xpath('..').text}
                 request.urlretrieve(image_details[str(index)]["src"],
-                                    "./web-app/static/images/" +
+                                    "./static/images/" +
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
         return image_details
