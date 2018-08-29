@@ -26,9 +26,8 @@ def do_admin_login():
 
 @app.route('/search', methods=['POST'])
 def search_weburl():
-
     image_details = PageParser("chrome", request.form['test-url']) \
-        .getImagesAndAltText()
+        .launch_browser().get_images_and_alt_text()
     return render_template('resultpage.html', data=image_details)
 
 

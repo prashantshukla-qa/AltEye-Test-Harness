@@ -15,9 +15,9 @@ class PageParser:
             self.driver.get(self.url)
         else:
             self.driver.get('http://' + self.url)
-        return self.driver
+        return self
 
-    def getImagesAndAltText(self):
+    def get_images_and_alt_text(self):
         image_details = {}
         image_elements = self.driver.find_elements_by_tag_name('img')
         for index, element in enumerate(image_elements):
@@ -32,3 +32,6 @@ class PageParser:
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
         return image_details
+
+    def get_driver_instance(self):
+        return self.driver
