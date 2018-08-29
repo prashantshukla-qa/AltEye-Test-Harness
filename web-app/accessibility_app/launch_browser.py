@@ -5,7 +5,8 @@ from urllib import request
 class PageParser:
 
     def __init__(self, browser, url):
-        self.driver = webdriver.Chrome()
+        chromedriver = "drivers/chromedriver"
+        self.driver = webdriver.Chrome(chromedriver)
         self.launch_browser(browser, url)
 
     def launch_browser(self, browser, url):
@@ -25,7 +26,7 @@ class PageParser:
                      "alt": element.get_attribute("alt"),
                      "vicinity_text": element.find_element_by_xpath('..').text}
                 request.urlretrieve(image_details[str(index)]["src"],
-                                    "./static/images/" +
+                                    "./web-app/static/images/" +
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
         return image_details
