@@ -15,6 +15,9 @@
                 <p>IMAGE URL: {{ imagedetails.src }}</p>
                 <p>ALT TEXT: {{ imagedetails.alt }}</p>
                 <p>Relevant TEXT: {{ imagedetails.vicinity_text}}</p>
+                <p>Classes From Image: {{ imagedetails.classes.image_classes}}</p>
+                <p>Classes From Text: {{ imagedetails.classes.text_classes}}</p>
+                <p>Relevant: {{ imagedetails.classes.relevant}}</p>
             </td>
         </tr>
         {% endfor %}
