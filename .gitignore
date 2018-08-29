@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+**/retrieved_images/*.jpg
 
 # C extensions
 *.so
