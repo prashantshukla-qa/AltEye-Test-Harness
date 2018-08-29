@@ -24,8 +24,10 @@ def do_admin_login():
     return home()
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search_weburl():
+    if request.method == 'GET':
+        return home()
     image_details = PageParser("chrome", request.form['test-url']) \
         .launch_browser().get_images_and_alt_text()
     return render_template('resultpage.html', data=image_details)
