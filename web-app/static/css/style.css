@@ -135,11 +135,11 @@ td {
 }
 
 tr:nth-child(odd) {
-  background-color: #777
+  background-color: bisque
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd
+  background-color: beige
 }
 
 tr:first-child{

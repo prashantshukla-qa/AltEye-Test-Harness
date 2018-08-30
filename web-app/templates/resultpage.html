@@ -18,7 +18,7 @@
                 <p>{{ imagedetails.alt }}</p>
             </td>
             <td style="text-align: left">
-                <p style="color: {{ imagedetails.classes.result}}">{{ imagedetails.classes.result}}</p>
+                <p style="color: {{imagedetails.classes.result}}">{{imagedetails.classes.result}}</p>
             </td>
             <td style="text-align: left">
                 {% for texts in imagedetails.classes.possible_texts %}
@@ -26,7 +26,6 @@
                 {% endfor %}
             </td>
             </td>
-
         </tr>
         {% endfor %}
     </table>
