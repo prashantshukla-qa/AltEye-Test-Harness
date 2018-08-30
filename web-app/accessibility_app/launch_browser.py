@@ -32,8 +32,9 @@ class PageParser:
         if image_elements.__len__() == 0:
             pass
 
-        for index, element in enumerate(image_elements):
-            if (element.is_displayed()) and element.size['height'] > 25:
+        index = 0
+        for index_bak, element in enumerate(image_elements):
+            if (element.is_displayed()) and element.size['height'] > 100:
                 image_details[str(index)] = \
                     {"src": element.get_attribute("src"),
                      "alt": element.get_attribute("alt"),
@@ -45,6 +46,8 @@ class PageParser:
                                     "./static/images/" +
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
+                index += 1
+        print(image_details)
         return image_details
 
     def get_vision_feedback(self):

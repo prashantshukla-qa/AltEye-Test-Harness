@@ -11,22 +11,22 @@
         {% for image, imagedetails in data.items() %}
         <tr>
             <td>
-                <img class="img-transform" height="100px" 
-                src="./static/images/retrieved_images/image_{{ image }}.jpg?{{ imagedetails.current_time }}">
+                <img class="img-transform" height="100px" src="./static/images/retrieved_images/image_{{ image }}.jpg?{{ imagedetails.current_time }}">
             </td>
             <td style="text-align: left">
+                <!-- <a href="{{ imagedetails.src }}">{{ imagedetails.src }}</a> -->
                 <p>ALT TEXT: {{ imagedetails.alt }}</p>
-                <p>Relevant TEXT: {{ imagedetails.vicinity_text}}</p>
             </td>
             <td style="text-align: left">
                 <p>{{ imagedetails.classes.result}}</p>
             </td>
             <td style="text-align: left">
                 {% for texts in imagedetails.classes.possible_texts %}
-                    <p> use: {{texts.Entity}} with {{texts.confidence}} % confidence </p>
+                <p> use: {{texts.Entity}} with {{texts.confidence}} % confidence </p>
                 {% endfor %}
             </td>
             </td>
+
         </tr>
         {% endfor %}
     </table>
