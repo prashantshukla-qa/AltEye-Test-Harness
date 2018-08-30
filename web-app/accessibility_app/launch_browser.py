@@ -1,11 +1,15 @@
 from selenium import webdriver
 from urllib import request
+from selenium.webdriver.chrome.options import Options
+import time
 
 
 class PageParser:
 
     def __init__(self, browser, url):
-        self.driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument("headless")
+        self.driver = webdriver.Chrome(chrome_options=options)
         self.browser = browser
         self.url = url
 
@@ -19,14 +23,22 @@ class PageParser:
 
     def get_images_and_alt_text(self):
         image_details = {}
-        image_elements = self.driver.find_elements_by_tag_name('img')
+        image_elements = self.driver\
+            .find_element_by_class_name('infobox')\
+            .find_elements_by_tag_name('img')
+
+        if image_elements.__len__() == 0:
+            pass
+
         for index, element in enumerate(image_elements):
-            if (element.is_displayed()):
+            if (element.is_displayed()) and element.size['height'] > 25:
                 image_details[str(index)] = \
                     {"src": element.get_attribute("src"),
                      "alt": element.get_attribute("alt"),
-                     "vicinity_text": element.find_element_by_xpath
-                     ("../../..").text}
+                     "vicinity_text": element.size['height'],
+                     #  "vicinity_text": element.find_element_by_xpath
+                     #  ("../../..").text,
+                     "current_time": time.time()}
                 request.urlretrieve(image_details[str(index)]["src"],
                                     "./static/images/" +
                                     "retrieved_images/" +

@@ -116,7 +116,8 @@ input:focus {
 }
 
 .errormessage {
-  color: red
+  color: red;
+  text-align: center
 }
 
 table {
@@ -144,4 +145,8 @@ tr:nth-child(even) {
 tr:first-child{
   background-color: black;
   color: #dddddd
+}
+
+.img-transform:hover {
+  transform: scale(2.5);
 }

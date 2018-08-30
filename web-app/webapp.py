@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    session['logged_in'] = True
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
@@ -15,7 +16,7 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    if request.form['password'] == 'password' and \
+    if request.form['password'] == 'password' and\
             request.form['username'].lower() == 'admin':
         session['logged_in'] = True
         return redirect("/", code=302)
@@ -28,8 +29,12 @@ def do_admin_login():
 def search_weburl():
     if request.method == 'GET':
         return home()
-    image_details = PageParser("chrome", request.form['test-url']) \
+    image_details = PageParser("chrome", request.form['test-url'])\
         .launch_browser().get_images_and_alt_text()
+    if image_details.__len__() == 0:
+        flash('Either \'infobox\' or \'image in infobox\' \
+        is absent from the webpage!!!')
+        return home()
     return render_template('resultpage.html', data=image_details)
 
 

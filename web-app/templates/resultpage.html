@@ -3,18 +3,27 @@
 <div class="test-url-screen">
     <table>
         <tr>
-            <th>Image Number</th>
-            <th>Image Details</th>
+            <th>Image</th>
+            <th>Actual ALT Text</th>
+            <th>Is ALT Relevant</th>
+            <th>Recommendations</th>
         </tr>
         {% for image, imagedetails in data.items() %}
         <tr>
             <td>
-                <img height="50px" src="./static/images/retrieved_images/image_{{ image }}.jpg">
+                <img class="img-transform" height="100px" 
+                src="./static/images/retrieved_images/image_{{ image }}.jpg?{{ imagedetails.current_time }}">
             </td>
             <td style="text-align: left">
-                <p>IMAGE URL: {{ imagedetails.src }}</p>
                 <p>ALT TEXT: {{ imagedetails.alt }}</p>
                 <p>Relevant TEXT: {{ imagedetails.vicinity_text}}</p>
+            </td>
+            <td style="text-align: left">
+                <p>{{ imagedetails.vicinity_text}}</p>
+            </td>
+            <td style="text-align: left">
+                <p>{{ imagedetails.vicinity_text}}</p>
+            </td>
             </td>
         </tr>
         {% endfor %}
