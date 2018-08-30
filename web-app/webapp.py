@@ -29,6 +29,9 @@ def do_admin_login():
 def search_weburl():
     if request.method == 'GET':
         return home()
+    if "wikipedia" not in request.form['test-url']:
+        flash('This demo works only on Wikipedia!!!')
+        return home()
     image_details = PageParser("chrome", request.form['test-url'])\
         .launch_browser().get_vision_feedback()
     if image_details.__len__() == 0:

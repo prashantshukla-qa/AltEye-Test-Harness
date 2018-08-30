@@ -21,7 +21,6 @@ class DetectText:
         uni_string = str(Text)
         doc = nlp(uni_string)
         for ent in doc.ents:
-            print("====", ent.label_)
             classFromText.append(ent.label_)
 
         Text = Text.lower()
@@ -32,7 +31,6 @@ class DetectText:
             # """token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
             #       token.shape_, token.is_alpha, token.is_stop"""
             if not token.is_stop:
-                print(token.text, token.lemma_)
                 classFromText.append(token.lemma_)
                 classFromText.append(token.text)
 

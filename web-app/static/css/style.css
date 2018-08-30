@@ -150,3 +150,8 @@ tr:first-child{
 .img-transform:hover {
   transform: scale(2.5);
 }
+
+.tile_div input {
+  float: left;
+  padding: 5px
+}
