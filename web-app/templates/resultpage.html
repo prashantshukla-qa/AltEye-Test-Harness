@@ -19,10 +19,12 @@
                 <p>Relevant TEXT: {{ imagedetails.vicinity_text}}</p>
             </td>
             <td style="text-align: left">
-                <p>{{ imagedetails.vicinity_text}}</p>
+                <p>{{ imagedetails.classes.result}}</p>
             </td>
             <td style="text-align: left">
-                <p>{{ imagedetails.vicinity_text}}</p>
+                {% for texts in imagedetails.classes.possible_texts %}
+                    <p> use: {{texts.Entity}} with {{texts.confidence}} % confidence </p>
+                {% endfor %}
             </td>
             </td>
         </tr>

@@ -2,6 +2,8 @@ from selenium import webdriver
 from urllib import request
 from selenium.webdriver.chrome.options import Options
 import time
+from accessibility_app.Image_Detection.Image_Data_Scanner import Image_Scanner
+from accessibility_app.TextAnalyzer.DetectText import DetectText
 
 
 class PageParser:
@@ -43,6 +45,26 @@ class PageParser:
                                     "./static/images/" +
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
+        return image_details
+
+    def get_vision_feedback(self):
+        image_details = self.get_images_and_alt_text()
+        for index, element in enumerate(image_details):
+            classes = {}
+            list_of_entities = Image_Scanner(80)\
+                .Scan_Image(image_details[str(index)]["src"])
+            classesFromText = DetectText()\
+                .detectTextIn(image_details[str(index)]["src"])
+            classes["possible_texts"] = []
+            classes["text_classes"] = classesFromText
+            classes["result"] = False
+            for item in list_of_entities:
+                classes["possible_texts"].append(item)
+                if item["Entity"] in classes["text_classes"]:
+                    classes["result"] = "GREEN"
+                if classes["result"] is False:
+                    classes["result"] = "RED"
+            image_details[str(index)]['classes'] = classes
         return image_details
 
     def get_driver_instance(self):

@@ -30,7 +30,7 @@ def search_weburl():
     if request.method == 'GET':
         return home()
     image_details = PageParser("chrome", request.form['test-url'])\
-        .launch_browser().get_images_and_alt_text()
+        .launch_browser().get_vision_feedback()
     if image_details.__len__() == 0:
         flash('Either \'infobox\' or \'image in infobox\' \
         is absent from the webpage!!!')
