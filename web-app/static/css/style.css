@@ -108,6 +108,7 @@ input:focus {
 .test-url-screen {
   margin: 20px auto;
   max-width: 900px;
+  align-content: center
 }
 
 .test-url {
@@ -123,7 +124,7 @@ input:focus {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  /* width: 90%; */
+  width: 100%;
   border: 5px solid #dddddd;
   padding: 10px;
 }
@@ -154,4 +155,12 @@ tr:first-child{
 .tile_div input {
   float: left;
   padding: 5px
+}
+
+.alt-container{
+  display: flex
+}
+
+input.atl{
+  margin:0 auto
 }

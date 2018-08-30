@@ -1,0 +1,15 @@
+<div class="control-group">
+	<input type="text" class="test-url" value="" placeholder="test website URL" name="test-url">
+	<label class="login-field-icon fui-user" for="login-name"></label>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	{% for message in messages %}
+	<div class="errormessage">{{ message }}</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+</div>
+<div class="alt-container">
+	<input type="submit" name="action" value="Get Alt Text" class="btn btn-primary btn-large btn-block alt">
+	<input type="submit" name="action" value="Test Alt Text Relevancy" class="btn btn-primary btn-large btn-block alt">
+</div>
