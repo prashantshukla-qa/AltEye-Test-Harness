@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 from accessibility_app.Image_Detection.Image_Data_Scanner import Image_Scanner
 from accessibility_app.TextAnalyzer.DetectText import DetectText
+import re
 
 
 class PageParser:
@@ -47,7 +48,6 @@ class PageParser:
                                     "retrieved_images/" +
                                     "image_" + str(index) + ".jpg")
                 index += 1
-        print(image_details)
         return image_details
 
     def get_vision_feedback(self):
@@ -56,8 +56,10 @@ class PageParser:
             classes = {}
             list_of_entities = Image_Scanner(80)\
                 .Scan_Image(image_details[str(index)]["src"])
+            image_details[str(index)]["alt"] = re.sub(
+                "\.(\w+)$", "", image_details[str(index)]["alt"])
             classesFromText = DetectText()\
-                .detectTextIn(image_details[str(index)]["src"])
+                .detectTextIn(image_details[str(index)]["alt"])
             classes["possible_texts"] = []
             classes["text_classes"] = classesFromText
             classes["result"] = False
