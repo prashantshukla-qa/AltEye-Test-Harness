@@ -8,26 +8,50 @@ Model_dir_Path= os.path.dirname(os.path.realpath(__file__))
 Web_app_dir=os.path.dirname(os.path.realpath(__file__+"../../.."))
 from Image_Detection.ImageSaver import ImageSave
 import re
+from imageai.Prediction.Custom import CustomImagePrediction
 
 class Predict_Image:
     
     # other model to be trained 
-    def __init__(self,Threshold=20,modelName="ResNet"):
+    def __init__(self,Threshold=20,modelName="ResNet",CustomModelName=None,CustomModelJsonFilePath=None):
         self.Threshold=Threshold
-        self.prediction = ImagePrediction()
+        if CustomModelName is None:
+            self.prediction = ImagePrediction()
+        else:
+            self.prediction = CustomImagePrediction()
+        
         if modelName in "ResNet":
             self.prediction.setModelTypeAsResNet()
-            self.prediction.setModelPath(Model_dir_Path+"/Models/resnet50_weights_tf_dim_ordering_tf_kernels.h5")
+            if CustomModelName is None:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/resnet50_weights_tf_dim_ordering_tf_kernels.h5")
+            else:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
+                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
+        
+            
         elif modelName in "SqueezeNet":
             self.prediction.setModelTypeAsSqueezeNet()
-            self.prediction.setModelPath(Model_dir_Path+"/Models/squeezenet_weights_tf_dim_ordering_tf_kernels.h5")
-
+            if CustomModelName is None:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/squeezenet_weights_tf_dim_ordering_tf_kernels.h5")
+            else:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
+                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
         elif modelName in "InceptionV3":
             self.prediction.setModelTypeAsInceptionV3()
-            self.prediction.setModelPath(Model_dir_Path+"/Models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5")
+            if CustomModelName is None:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5")
+            else:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
+                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)            
         elif modelName in "DenseNet" :
             self.prediction.setModelTypeAsDenseNet()
-            self.prediction.setModelPath(Model_dir_Path+"/Models/DenseNet-BC-121-32.h5")
+            if CustomModelName is None:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/DenseNet-BC-121-32.h5")
+            else:
+                self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
+                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath) 
+            
+        
         self.prediction.loadModel()
 
     def get_classes_from_image(self,url):
