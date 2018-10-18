@@ -26,7 +26,7 @@ class Predict_Image:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/resnet50_weights_tf_dim_ordering_tf_kernels.h5")
             else:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
-                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
+                self.prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
         
             
         elif modelName in "SqueezeNet":
@@ -35,21 +35,23 @@ class Predict_Image:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/squeezenet_weights_tf_dim_ordering_tf_kernels.h5")
             else:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
-                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
+                self.prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)
+
         elif modelName in "InceptionV3":
             self.prediction.setModelTypeAsInceptionV3()
             if CustomModelName is None:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5")
             else:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
-                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)            
+                self.prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath)   
+
         elif modelName in "DenseNet" :
             self.prediction.setModelTypeAsDenseNet()
             if CustomModelName is None:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/DenseNet-BC-121-32.h5")
             else:
                 self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
-                prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath) 
+                self.prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath) 
             
         
         self.prediction.loadModel()
