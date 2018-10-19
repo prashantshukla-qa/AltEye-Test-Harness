@@ -4,15 +4,19 @@ from Image_AI import Image_prediction
 
 class Verify_Guidelines:
 
+
+
     def ExtractClasses(self, url, alt, vicinity_text,method="googleAPI",Threshold=80,model="DenseNet"):
-        self.scan_Image = Image_Data_Scanner.Image_Scanner(Threshold)
+        
         self.detectText = DetectText.DetectText()
-        self.scan_Image_via_Image_AI=Image_prediction.Predict_Image(Threshold,model)
+        
         classes = {}
         if method in "googleAPI":
+            self.scan_Image = Image_Data_Scanner.Image_Scanner(Threshold)
             print("using google API")
             list_of_entities = self.scan_Image.Scan_Image(url)
         else:
+            self.scan_Image_via_Image_AI=Image_prediction.Predict_Image(Threshold,model)
             print("using ImageAI API")
             list_of_entities = self.scan_Image_via_Image_AI.get_classes_from_image(url)
         
@@ -29,6 +33,4 @@ class Verify_Guidelines:
         return classes
 
 
-# print(Verify_Guidelines().ExtractClasses(
-#     "https://upload.wikimedia.org/wikipedia/commons/thumb//f/f4/Honeycrisp.jpg/220px-Honeycrisp.jpg",
-#     "Honeyshit", "",""))
+
