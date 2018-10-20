@@ -38,13 +38,13 @@ class Google_API_Request:
 
                 }
             ]
-        })
+        }) 
 
         r = requests.post(Google_API_Request.url+'?key=' +
                           Google_API_Request.key,
                           data=encoded_body)
         json_data = json.loads(r.text)
-        print(json_data)
+       
         return json_data
 
     def get_Image_Information_from_vision_api_by_upload_file(self,
@@ -59,7 +59,13 @@ class Google_API_Request:
                         {
                             "type": "LABEL_DETECTION"
 
-                        }
+                        },
+                        {
+                            "type": "TEXT_DETECTION"
+                        },
+                        #  {
+                        #     "type": "WEB_DETECTION"
+                        # }
                     ]
 
                 }
