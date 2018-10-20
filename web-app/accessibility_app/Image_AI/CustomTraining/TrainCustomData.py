@@ -1,11 +1,12 @@
 from imageai.Prediction.Custom import ModelTraining
-
+import os 
+path=os.path.dirname(os.path.realpath(__file__))
 
 
 class Custom_Train:
 
     @staticmethod
-    def train_model(foldername,Model_Type,num_objects=4, num_experiments=100, enhance_data=True, batch_size=1, show_network_summary=True):
+    def train_model(foldername,Model_Type,num_objects=2, num_experiments=1, enhance_data=False, batch_size=1, show_network_summary=True):
         model_trainer = ModelTraining()
         if Model_Type in "ResNet":
             model_trainer.setModelTypeAsResNet()
@@ -17,4 +18,3 @@ class Custom_Train:
             model_trainer.setModelTypeAsDenseNet()
         model_trainer.setDataDirectory(foldername)
         model_trainer.trainModel(num_objects=num_objects, num_experiments=num_experiments, enhance_data=enhance_data, batch_size=batch_size, show_network_summary=show_network_summary)
-
