@@ -14,21 +14,21 @@ class Verify_Guidelines:
             self.scan_Image = Image_Data_Scanner.Image_Scanner(Threshold)
             print("using google API")
             list_of_entities = self.scan_Image.Scan_Image(url)
-            has_Text = self.scan_Image.is_Text_Present_In_Image()
+            Image_has_Text = self.scan_Image.is_Text_Present_In_Image()
         else:
             self.scan_Image_via_Image_AI = Image_prediction.Predict_Image(
                 Threshold, model)
             print("using ImageAI API")
             list_of_entities = self.scan_Image_via_Image_AI.get_classes_from_image(
                 url)
-            has_Text = False
+            Image_has_Text = False
         classes["possible_texts"] = []
         classes["result"] = False
-        if has_Text:
-            classes["text_classes"]={alt}
+        if Image_has_Text:
+            classes["text_classes"]={alt.lower()}
             for text in self.scan_Image.get_Text_list_From_Image():
                 classes["possible_texts"].append(text)
-                if text["Entity"] in classes["text_classes"]:
+                if text["Entity"].lower() in classes["text_classes"]:
                     classes["result"] = "GREEN"
         else:
             classesFromText = self.detectText.detectTextIn(alt)
@@ -40,4 +40,5 @@ class Verify_Guidelines:
 
         if classes["result"] is False:
             classes["result"] = "RED"
+        # print(classes)
         return classes
