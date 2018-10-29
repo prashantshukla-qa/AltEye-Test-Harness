@@ -11,6 +11,7 @@ class Image_Scanner:
         self.text_from_Image = []
 
     def Scan_Image(self, url, upload=False):
+
         self.is_text_present_in_Image = None
         result_set = []
         if upload is True:
@@ -22,25 +23,33 @@ class Image_Scanner:
             self.data_dict = self.req.get_Image_Information_from_vision_api(
                 url)
         try:
+            print("Here...1")
             for data_list in self.data_dict["responses"][0]["labelAnnotations"]:
                 if data_list['description'] in "text":
                     self.is_text_present_in_Image = True
                 if data_list['score']*100 > self.match_threshhold:
                     result_set.append(
                         {'Entity': data_list['description'],
-                        'confidence': round(data_list['score']*100, 2)})
-            
+                         'confidence': round(data_list['score']*100, 2)})
+
+                for data_list in self.data_dict["responses"][0]["webDetection"]["webEntities"]:
+                    if data_list['score']*100 > self.match_threshhold and 'description' in data_list:
+                        result_set.append(
+                            {'Entity': data_list['description'],
+                             'confidence': round(data_list['score']*100, 2)})
+
                 if self.is_text_present_in_Image:
                     text = self.data_dict["responses"][0]["fullTextAnnotation"]['text']
                     text_from_Image_list = text.split("\n")
                     for eachtext in text_from_Image_list:
                         self.text_from_Image.append({'Entity': eachtext,
-                                                    'confidence': self.match_threshhold})
+                                                     'confidence': self.match_threshhold})
         except KeyError as error:
-             if "labelAnnotations" in str(error):
-                return [{'Entity': "None:Error Occured",'confidence': 0,}]
-             else:
-                 return result_set
+            print(error)
+            if "labelAnnotations" in str(error):
+                return [{'Entity': "None:Error Occured", 'confidence': 0, }]
+            else:
+                return result_set
 
         return result_set
 
