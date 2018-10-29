@@ -57,12 +57,12 @@ def search_weburl():
         Threshold=request.form['Threshold']
         width=request.form['width']
         height=request.form['height']
-        if Threshold=='':Threshold=50
+        if Threshold=='':Threshold=60
         if width=='':width=50
         if height=='':height=50
 
         image_details = PageParser("chrome", request.form['test-url'])\
-            .launch_browser().get_vision_feedback(modelValue,Threshold,methodValue,width,height)
+            .launch_browser().get_vision_feedback(modelValue,int(Threshold),methodValue,int(width),int(height))
         if image_details.__len__() == 0:
             flash('no Images found')
             return home()
