@@ -5,30 +5,30 @@
         <tr>
             <th>Image</th>
             <th>Actual ALT Text</th>
-            <th>Is Alt Text Relevant?</th>
+            <!-- <th>Is Alt Text Relevant?</th> -->
         </tr>
-        {% for image, imagedetails in data.items() %}
+        {% for imagedetails in data.items() %}
         <tr>
             <td>
-                <img class="img-transform" height="100px" src="./static/images/retrieved_images/image_{{ image }}.jpg?{{ imagedetails.current_time }}">
+                <img class="img-transform" height="100px" src="{{imagedetails.src}}">
             </td>
             <td style="text-align: left">
                 <!-- <a href="{{ imagedetails.src }}">{{ imagedetails.src }}</a> -->
                 <p>{{ imagedetails.alt }}</p>
             </td>
-            <td style="text-align: center">
+            <!-- <td style="text-align: center">
                 <p style="color: green">GREEN</p>
-            </td>
+            </td> -->
             </td>
         </tr>
         {% endfor %}
     </table>
 </div>
-<form action="/search" method="POST">
+<!-- <form action="/search" method="POST">
     <div class="test-url-screen">
         <div class="login-screen">
             {% include 'searchpage.html' %}
             <br>
         </div>
-</form>
+</form> -->
 {% endblock%}
