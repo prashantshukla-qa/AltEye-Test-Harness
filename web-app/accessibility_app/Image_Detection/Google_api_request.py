@@ -30,9 +30,9 @@ class Google_API_Request:
                         # {
                         #     "type": "IMAGE_PROPERTIES"
                         # },
-                        # {
-                        #     "type": "WEB_DETECTION"
-                        # }
+                        {
+                            "type": "WEB_DETECTION"
+                        }
 
                     ]
 
@@ -44,7 +44,7 @@ class Google_API_Request:
                           Google_API_Request.key,
                           data=encoded_body)
         json_data = json.loads(r.text)
-       
+        
         return json_data
 
     def get_Image_Information_from_vision_api_by_upload_file(self,
@@ -63,9 +63,9 @@ class Google_API_Request:
                         {
                             "type": "TEXT_DETECTION"
                         },
-                        #  {
-                        #     "type": "WEB_DETECTION"
-                        # }
+                         {
+                            "type": "WEB_DETECTION"
+                        }
                     ]
 
                 }
