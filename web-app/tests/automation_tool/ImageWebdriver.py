@@ -7,7 +7,6 @@ import requests
 
 
 class Image_Chrome_Webdriver(webdriver.Chrome):
-    print("here2")
     def __init__(self,executable_path="chromedriver", port=0,
                  options=None, service_args=None,
                  desired_capabilities=None, service_log_path=None,
@@ -29,7 +28,10 @@ class Image_Chrome_Webdriver(webdriver.Chrome):
             try:
                 possible_texts=[x['Entity'] for x in Result['possible_texts']]
                 assert Result['result']=="GREEN","Expected the Text classes"+str(Result['text_classes'])+" to be in Image Classes "+str(possible_texts)
+                print("\n")
+                print("This Image "+url+" has alt text "+alt+" and text is relevant to Image")
             except AssertionError as error:
+                print("\n")
                 print("This Image "+url+" has alt text "+alt+" and it seems text is not relevant to Image")
                 print("Expected the Text classes"+str(Result['text_classes'])+" to be in Image Classes "+str(possible_texts))
 
