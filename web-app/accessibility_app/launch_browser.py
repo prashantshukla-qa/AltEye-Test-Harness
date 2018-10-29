@@ -44,7 +44,7 @@ class PageParser:
 
         index = 0
         for index_bak, element in enumerate(image_elements):
-            if element.size['height'] > height and element.size['width'] > width: # (element.is_displayed()) 
+            if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: #  
                 image_details.append(\
                     {"src": element.get_attribute("src"),
                      "alt": element.get_attribute("alt"),
@@ -83,6 +83,7 @@ class PageParser:
         # print(image_details)
         metodDict={"1":"googleAPI","2":"ImageAI"}
         modelDict={"1":"DenseNet","2":"ResNet","3":"SqueezeNet","4":"InceptionV3"}
+
         for index, element in enumerate(image_details):
             classes = {}
             image_details[index]["alt"] = re.sub(
