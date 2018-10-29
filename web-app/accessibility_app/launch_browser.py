@@ -43,22 +43,14 @@ class PageParser:
 
         index = 0
         for index_bak, element in enumerate(image_elements):
-            if element.get_attribute("src") == "https://www.stuartweitzman.com/assets/item/swatch/large/wolfe_brisue_plpsw.jpg":
-                print("Found the 1234")
-                print(element.is_displayed())
-                print(element.size['height'])
-                print(element.size['width'])
-                print(height)
-                print(width)
-
-            if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: 
-                print(element.get_attribute("src")) 
-                image_details.append(\
-                    {"src": element.get_attribute("src"),
-                     "alt": element.get_attribute("alt"),
-                      "vicinity_text": element.find_element_by_xpath
-                      ("..").text,
-                     "current_time": time.time()})
+                if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: 
+                    print(element.get_attribute("src")) 
+                    image_details.append(\
+                        {"src": element.get_attribute("src"),
+                            "alt": element.get_attribute("alt"),
+                            "vicinity_text": "",#element.find_element_by_xpath
+                            #("..").text,
+                            "current_time": time.time()})
                 # request.urlretrieve(image_details[index]["src"],
                 #                     "./static/images/" +
                 #                     "retrieved_images/" +
@@ -100,6 +92,5 @@ class PageParser:
                 index]["alt"],image_details[index]["vicinity_text"], metodDict[str(method)],Threshold,modelDict[str(model)])
             image_details[index]['classes'] = classes
         return image_details
-
     def get_driver_instance(self):
         return self.driver
