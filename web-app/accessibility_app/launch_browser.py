@@ -35,15 +35,21 @@ class PageParser:
         for index, iframe in enumerate(iframes):
                 self.driver.switch_to.frame(iframe)
                 frame_image_details=self.driver.find_elements_by_xpath('//img')
-                image_details+frame_image_details
+                image_elements+frame_image_details
                 self.driver.switch_to.parent_frame()
-
-
+        print(image_elements)
         if image_elements.__len__() == 0:
             pass
 
         index = 0
         for index_bak, element in enumerate(image_elements):
+            if element.get_attribute("src") == "https://www.stuartweitzman.com/assets/item/swatch/large/wolfe_brisue_plpsw.jpg":
+                print("Found the 1234")
+                print(element.is_displayed())
+                print(element.size['height'])
+                print(element.size['width'])
+
+
             if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: #  
                 image_details.append(\
                     {"src": element.get_attribute("src"),
