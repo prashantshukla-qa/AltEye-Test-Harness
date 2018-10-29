@@ -7,10 +7,10 @@
             <th>Actual ALT Text</th>
             <!-- <th>Is Alt Text Relevant?</th> -->
         </tr>
-        {% for imagedetails in data.items() %}
+        {% for imagedetails in data %}
         <tr>
             <td>
-                <img class="img-transform" height="100px" src="{{imagedetails.src}}">
+                <img class="img-transform" height="100px" width="100px" src="{{imagedetails.src}}">
             </td>
             <td style="text-align: left">
                 <!-- <a href="{{ imagedetails.src }}">{{ imagedetails.src }}</a> -->
