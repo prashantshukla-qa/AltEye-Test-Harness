@@ -24,6 +24,7 @@ class Verify_Guidelines:
             Image_has_Text = False
         classes["possible_texts"] = []
         classes["result"] = False
+        print(list_of_entities)
         if Image_has_Text:
             classes["text_classes"]=alt.lower().split()
             for text in self.scan_Image.get_Text_list_From_Image():
@@ -34,15 +35,13 @@ class Verify_Guidelines:
                     for exact_text in classes["text_classes"]:
                         if text["Entity"].lower() in exact_text:
                             classes["result"] = "GREEN"
-        else:
-            classesFromText = self.detectText.detectTextIn(alt)
-            classes["text_classes"] = classesFromText
-            for item in list_of_entities:
-                classes["possible_texts"].append(item)
-                if item["Entity"] in classes["text_classes"]:
-                    classes["result"] = "GREEN"
+        classesFromText = self.detectText.detectTextIn(alt)
+        classes["text_classes"] = classesFromText
+        for item in list_of_entities:
+            classes["possible_texts"].append(item)
+            if item["Entity"] in classes["text_classes"]:
+                classes["result"] = "GREEN"
 
         if classes["result"] is False:
             classes["result"] = "RED"
-        # print(classes)
         return classes
