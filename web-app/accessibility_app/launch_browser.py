@@ -48,9 +48,11 @@ class PageParser:
                 print(element.is_displayed())
                 print(element.size['height'])
                 print(element.size['width'])
+                print(height)
+                print(width)
 
-
-            if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: #  
+            if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: 
+                print(element.get_attribute("src")) 
                 image_details.append(\
                     {"src": element.get_attribute("src"),
                      "alt": element.get_attribute("alt"),
@@ -61,11 +63,11 @@ class PageParser:
                 #                     "./static/images/" +
                 #                     "retrieved_images/" +
                 #                     "image_" + str(index) + ".jpg")
-                index += 1
+                #index += 1
         return image_details
 
     def get_vision_feedback(self,method=1,Threshold=60,model=1,width=50,height=50):
-        image_details = self.get_images_and_alt_text()
+        image_details = self.get_images_and_alt_text(width,height)
         # print(image_details)
         # for index, element in enumerate(image_details):
         #     classes = {}
