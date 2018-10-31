@@ -6,6 +6,7 @@ class DetectText:
 
     def detectTextIn(self, Text):
         classFromText = []
+        classFromText.append(Text)
         # Text=Text.lower()
         nlp = spacy.load('en_core_web_sm')
         # Adding Custom stop words
@@ -22,6 +23,7 @@ class DetectText:
         doc = nlp(uni_string)
         for ent in doc.ents:
             classFromText.append(ent.label_)
+            print(ent)
 
         Text = Text.lower()
         uni_string = str(Text)
