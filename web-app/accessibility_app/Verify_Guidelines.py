@@ -46,7 +46,7 @@ class Verify_Guidelines:
         unique_lists=[]
         unique_keys=[]
         for item in classes["possible_texts"]:
-            if item['Entity'] in unique_keys:
+            if item['Entity'].lower() in [x.lower() for x in unique_keys]:
                 pass
             else:
                 unique_keys.append(item['Entity'])
