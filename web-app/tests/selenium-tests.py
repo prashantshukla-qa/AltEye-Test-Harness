@@ -1,17 +1,14 @@
 import unittest
-from accessibility_app.launch_browser import PageParser
 from selenium import webdriver
+from automation_tool.VicinityElements import GetVicinityText
+from automation_tool.ImageWebdriver import Image_Chrome_Webdriver
 
+class SeleniumTest():
 
-class SeleniumTest(unittest.TestCase):
-
-    def test_image_details(self):
+    def test_Hello(self):
         image_details = {}
-
-        driver = PageParser(
-            "chrome", "https://en.wikipedia.org/wiki/Tiger")\
-            .launch_browser()
-
+        driver = Image_Chrome_Webdriver()
+        driver.get("https://en.wikipedia.org/wiki/Car")
         image_elements = driver.find_elements_by_tag_name('img')
 
         for index, element in enumerate(image_elements):
@@ -19,8 +16,9 @@ class SeleniumTest(unittest.TestCase):
                 image_details[str(index)] = \
                     {"src": element.get_attribute("src"),
                         "alt": element.get_attribute("alt"),
-                        "vicinity_text": element.find_element_by_xpath
-                        ("../../..").text}
-            if (index == 6):
-                print(element.find_element_by_xpath
-                      ("../../..").text)
+                        "vicinity_text": GetVicinityText.get_vicinity_text(element,1)
+                    }
+                driver.Test_Alt_Text_Relevancy(image_details[str(index)]['src'],image_details[str(index)]['alt'],image_details[str(index)]['vicinity_text'])        
+        
+if __name__ == '__main__':
+    SeleniumTest().test_Hello()

@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 **/retrieved_images/*.jpg
+*/*/*/*/*.h5
 
 # C extensions
 *.so
