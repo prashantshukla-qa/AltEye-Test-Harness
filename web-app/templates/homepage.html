@@ -10,12 +10,6 @@
 			<br>
 			<div class="form-row align-items-center justify-content-center">
 					<div class="col-auto my-1">
-					  <label class="mr-sm-2" for="Method" style="position: relative;left: 100px">Choose the Image Detection Method(Default is Google)</label>
-					  <select name="method" class="custom-select mr-sm-2" id="MethodOptions" onchange="DisplayTheModelDropdown(this)">
-							<option value="1" selected>Google Vision Api</option>
-							<option value="2">ImageAI</option>
-					  </select>
-					  <br>
 					  <br>
 				      <input name="Threshold" type="text" id="Threshold" class="form-control" placeholder="Threshold default is 60">
 					  <br>
@@ -23,8 +17,8 @@
 					  <br>
 					  <input  name="height" type="text" id="Threshold" class="form-control" placeholder="minimum height of Image(Default is 50px) ">
 					  <br>
-					  <label class="mr-sm-2" for="model" style="position: relative;left: 150px" hidden="true">Choose the Model(Default is DenseNet)</label>
-					  <select name="model" class="custom-select mr-sm-2" id="ModelOption" hidden="true">
+					  <label class="mr-sm-2" for="model" style="position: relative;left: 100px">Choose the Model(Default is DenseNet)</label>
+					  <select name="model" class="custom-select mr-sm-2" id="ModelOption">
 							<option value="1" selected>DenseNet</option>
 							<option value="2">SqueezeNet</option>
 							<option value="3"> InceptionV3</option>
