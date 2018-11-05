@@ -4,7 +4,8 @@ import os
 
 class Encode_Image:
 
-    def encode_image(self, image_Name):
+    @staticmethod
+    def encode_image(image_Name):
         dir_path = os.path.dirname(os.path.realpath(__file__+"/../../"))
         print(dir_path)
         with open(dir_path+"/static/images/retrieved_images/"+image_Name, "rb") as image_file:
