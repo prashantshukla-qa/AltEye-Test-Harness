@@ -1,5 +1,7 @@
 from . import Google_api_request
 from . import Encode_Image
+from . import ImageSaver
+import  re
 
 
 class Image_Scanner:
@@ -14,9 +16,12 @@ class Image_Scanner:
 
         self.is_text_present_in_Image = None
         result_set = []
-        if upload is True:
+        islocal="local://" in url
+        if upload is True or islocal:
+            print("using upload")
+            filename=re.search("local://(.+)$",url).group(1)
             en = Encode_Image.Encode_Image()
-            content = en.encode_image(url)
+            content = en.encode_image(filename)
             self.data_dict = self.req\
                 .get_Image_Information_from_vision_api_by_upload_file(content)
         else:
@@ -47,6 +52,7 @@ class Image_Scanner:
         except KeyError as error:
             print(error)
             if "labelAnnotations" in str(error):
+                
                 return [{'Entity': "None:Error Occured", 'confidence': 0, }]
             else:
                 return result_set
