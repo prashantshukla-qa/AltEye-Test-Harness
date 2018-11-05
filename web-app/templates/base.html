@@ -23,20 +23,6 @@
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script>
-       function DisplayTheModelDropdown(event)
-       {   
-          if(document.getElementById("MethodOptions").value==2)
-          {   
-              document.querySelector("[for='model']").hidden=false
-              document.getElementById("ModelOption").hidden=false
-          }
-          else
-        {
-            document.getElementById("ModelOption").value=1;
-            document.getElementById("ModelOption").hidden=true
-            document.querySelector("[for='model']").hidden=true
-        }   
-       }
         
         </script>
 </body>
