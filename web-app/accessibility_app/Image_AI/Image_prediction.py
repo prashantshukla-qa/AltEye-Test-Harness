@@ -64,7 +64,7 @@ class Predict_Image:
                 print("value of Model Dir is"+Model_dir_Path+"/Models/DenseNet-BC-121-32.h5"+"\n")
                 self.prediction.setModelPath(Model_dir_Path+"/Models/DenseNet-BC-121-32.h5")
             else:
-                rint("Here ....8\n")
+                print("Here ....8\n")
                 self.prediction.setModelPath(Model_dir_Path+"/Models/"+CustomModelName)
                 self.prediction.setJsonPath(Model_dir_Path+"/Models/"+CustomModelJsonFilePath) 
         self.prediction.loadModel()
@@ -72,7 +72,12 @@ class Predict_Image:
     def get_classes_from_image(self,url):
         save_Image=ImageSave()
         self.name=os.path.basename(url)
-        save_Image.save_Image_from_url(url,self.name)
+
+        if "local://" in url:
+            pass
+        else:
+            save_Image.save_Image_from_url(url,self.name)
+       
         predictions, probabilities = self.prediction.predictImage(Web_app_dir+"/static/images/retrieved_images/"+self.name, result_count=10 )
         result_set = []
         for eachPrediction, eachProbability in zip(predictions, probabilities):
