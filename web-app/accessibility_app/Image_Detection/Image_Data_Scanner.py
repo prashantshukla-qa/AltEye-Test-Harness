@@ -38,10 +38,10 @@ class Image_Scanner:
                          'confidence': round(data_list['score']*100, 2)})
 
                 for data_list in self.data_dict["responses"][0]["webDetection"]["webEntities"]:
-                    if data_list['score']*100 > self.match_threshhold and 'description' in data_list:
+                    if 'description' in data_list:
                         result_set.append(
-                            {'Entity': data_list['description'],
-                             'confidence': round(data_list['score']*100, 2)})
+                            {'Entity': data_list['description']+" (Web-Entity)",
+                             'confidence': round(data_list['score'], 2)})
 
                 if self.is_text_present_in_Image:
                     text = self.data_dict["responses"][0]["fullTextAnnotation"]['text']
