@@ -16,9 +16,9 @@ class Verify_Guidelines:
         print("using google API to detect Image")
         list_of_entities = self.scan_Image.Scan_Image(url)
         Image_has_Text = self.scan_Image.is_Text_Present_In_Image()
-        self.scan_Image_via_Image_AI = Image_prediction.Predict_Image(Threshold, model,CustomModel,CustomJson)
-        print("Now using ImageAI API to detect Image")
-        list_of_entities=list_of_entities +self.scan_Image_via_Image_AI.get_classes_from_image(url)
+        #self.scan_Image_via_Image_AI = Image_prediction.Predict_Image(Threshold, model,CustomModel,CustomJson)
+        #print("Now using ImageAI API to detect Image")
+        #list_of_entities=list_of_entities +self.scan_Image_via_Image_AI.get_classes_from_image(url)
         
         ##Detecting text from alt text 
         classesFromText = self.detectText.detectTextIn(alt)
@@ -46,7 +46,7 @@ class Verify_Guidelines:
         result_check_for_vicinity="RED"
 
         if not alt:  
-            classes["text_classes"] = classesFromVicinityText
+            classes["text_classes"] = [x.lower() for x in classesFromVicinityText]
             for item in list_of_entities:
                 classes["possible_texts"].append(item)
                 if item["Entity"] in classes["text_classes"]:
@@ -61,7 +61,11 @@ class Verify_Guidelines:
         for item in list_of_entities:
             classes["possible_texts"].append(item)
             for text_in_text_class in classes["text_classes"]:
-                if text_in_text_class==item["Entity"]:
+                image_class=item["Entity"]
+                if "(Web-Entity)" in image_class:
+                    image_class=image_class.replace(" (Web-Entity)","")
+                # print("comparing",text_in_text_class,"and",image_class)
+                if text_in_text_class.lower()==image_class.lower():
                     classes["result"] = "GREEN"
 
 
