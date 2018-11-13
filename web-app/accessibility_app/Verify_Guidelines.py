@@ -32,11 +32,11 @@ class Verify_Guidelines:
             for text in self.scan_Image.get_Text_list_From_Image():
                 classes["possible_texts"].append(text)
                 for text_in_text_class in classes["text_classes"]:
-                    if text["Entity"].lower() ==text_in_text_class.lower():
+                    if text["Entity"].lower() in text_in_text_class.lower():
                         classes["result"] = "GREEN"
                 else: 
                     for exact_text in classes["text_classes"]:
-                        if text["Entity"].lower() == exact_text.lower():
+                        if text["Entity"].lower() in exact_text.lower():
                             classes["result"] = "GREEN"
         
 
@@ -65,7 +65,7 @@ class Verify_Guidelines:
                 if "(Web-Entity)" in image_class:
                     image_class=image_class.replace(" (Web-Entity)","")
                 # print("comparing",text_in_text_class,"and",image_class)
-                if text_in_text_class.lower()==image_class.lower():
+                if text_in_text_class.lower() in image_class.lower():
                     classes["result"] = "GREEN"
 
 
