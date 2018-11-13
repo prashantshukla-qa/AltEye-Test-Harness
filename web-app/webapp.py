@@ -4,15 +4,26 @@ import sys
 for filename in glob.iglob('**/*', recursive=True):
     if(os.path.isdir(os.getcwd()+"/"+filename)):
         sys.path.append(filename)
-from flask import Flask, render_template, session, request, flash, redirect, jsonify
+from flask import Flask, render_template, session, request, flash, redirect, jsonify, url_for
 from accessibility_app.launch_browser import PageParser
 from accessibility_app.Verify_Guidelines import Verify_Guidelines
 import json
 verify_Guidelines = Verify_Guidelines()
 from html_parser.Image_html_parser import Image_html_parser
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 import json
+
+UPLOAD_FOLDER = './static/images/retrieved_images'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
@@ -52,20 +63,33 @@ def search_weburl():
             return home()
         return render_template('resultpage-alt.html', data=image_details)
     if request.form['action'] == 'Test Alt Text Relevancy':
-        modelValue= request.form['model']
-        methodValue=request.form['method']
-        Threshold=request.form['Threshold']
-        width=request.form['width']
-        height=request.form['height']
-        if Threshold=='':Threshold=60
-        if width=='':width=50
-        if height=='':height=50
+        modelValue = request.form['model']
+        Threshold = request.form['Threshold']
+        width = request.form['width']
+        height = request.form['height']
+        if Threshold == '':
+            Threshold = 60
+        if width == '':
+            width = 50
+        if height == '':
+            height = 50
 
         image_details = PageParser("chrome", request.form['test-url'])\
-            .launch_browser().get_vision_feedback(modelValue,int(Threshold),methodValue,int(width),int(height))
+            .launch_browser().get_vision_feedback(modelValue, int(Threshold), int(width), int(height))
         if image_details.__len__() == 0:
             flash('no Images found')
             return home()
+        for image in image_details:
+            image_web_entity=[]
+            image_entity=[]
+            for texts in image["classes"]["possible_texts"]:
+                if "(Web-Entity)" in texts["Entity"]:
+                    texts["Entity"]=texts["Entity"].replace("(Web-Entity)","")
+                    image_web_entity.append(texts)
+                else:
+                    image_entity.append(texts)
+            image["classes"]["image_web_entity"]=image_web_entity
+            image["classes"]["image_entity"]=image_entity
         return render_template('resultpage.html', data=image_details)
 
 
@@ -85,11 +109,6 @@ def get_Alt_relevancy():
     else:
         vicinity_text = ""
 
-    if request.args.get("method"):
-        method = request.args.get("method")
-    else:
-        method = "googleAPI"
-
     if request.args.get("Threshold"):
         Threshold = int(request.args.get("Threshold"))
     else:
@@ -99,41 +118,61 @@ def get_Alt_relevancy():
         Model = request.args.get("Model")
     else:
         Model = "DenseNet"
+    if request.form.get("custommodel"):
+        CustomModel = request.form.get("custommodel")
+    else:
+        CustomModel = None
+    if request.form.get("customjsonfile"):
+        CustomJsonPath = request.form.get("Model")
+    else:
+        CustomJsonPath = None
 
     result = verify_Guidelines.ExtractClasses(
-        url, alt, vicinity_text, method, Threshold, Model)
+        url, alt, vicinity_text, Threshold, Model,CustomModel, CustomJsonPath)
     result["text_classes"] = list(result["text_classes"])
     return jsonify(result)
 
 
-@app.route('/api/get_alt_relevancy/', methods=['POST'])
-def get_Alt_relevancy_via_source():
-    # print(dir(request))
-    jsonContent = request.data
-    body = json.loads(jsonContent)
-    url = body['url']
-    html_content = body['html_content']
-    if body["method"]:
-        method = body["method"]
-    else:
-        method = "googleAPI"
+@app.route('/api/upload_image_get_relevancy', methods=['POST'])
+def upload_file():
+    # checking if the file is present or not.
+    if 'file' not in request.files:
+        return {"error": "No file found"}
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print("file successfully saved")
 
-    if body["Threshold"]:
-        Threshold = int(body["Threshold"])
+        # print(dir(request))
+    url = "local://"+file.filename
+    alt = request.form.get("alt")
+    if request.form.get("vicinity"):
+        vicinity_text = request.form.get("vicinity")
+    else:
+        vicinity_text = ""
+
+    if request.form.get("Threshold"):
+        Threshold = int(request.form.get("Threshold"))
     else:
         Threshold = 30
 
-    if body["Model"]:
-        Model = body["Model"]
+    if request.form.get("Model"):
+        Model = request.form.get("Model")
     else:
         Model = "DenseNet"
-    list_of_alt_vicinity_data = Image_html_parser(
-        html_content).get_Images_alt_vicinity()
-    list_of_alt_vicinity_data = [ url+x[0] for x in list_of_alt_vicinity_data]
-    for img_data in list_of_alt_vicinity_data:
-        result = verify_Guidelines.ExtractClasses(
-            img_data[0], img_data[1], img_data[2], method, Threshold, Model)
-        result["text_classes"] = list(result["text_classes"])
+    if request.form.get("custommodel"):
+        CustomModel = request.form.get("custommodel")
+    else:
+        CustomModel = None
+    if request.form.get("customjsonfile"):
+        CustomJsonPath = request.form.get("Model")
+    else:
+        CustomJsonPath = None
+
+    result = verify_Guidelines.ExtractClasses(
+        url, alt, vicinity_text, Threshold, Model, CustomModel, CustomJsonPath)
+    result["text_classes"] = list(result["text_classes"])
     return jsonify(result)
 
 

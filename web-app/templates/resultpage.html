@@ -11,7 +11,7 @@
         {% for imagedetails in data%}
         <tr>
             <td>
-                <img class="img-transform" height="100px" width="100px" src="{{imagedetails.src}}">
+                <img class="img-transform" height="100px" width="100px" src="{{imagedetails.src}}" style="transition: all 400ms ease">
             </td>
             <td style="text-align: left">
                 <!-- <a href="{{ imagedetails.src }}">{{ imagedetails.src }}</a> -->
@@ -21,9 +21,42 @@
                 <p style="color: {{imagedetails.classes.result}}">{{imagedetails.classes.result}}</p>
             </td>
             <td style="text-align: left">
-                {% for texts in imagedetails.classes.possible_texts %}
-                <p> use: {{texts.Entity}} with {{texts.confidence}} % confidence </p>
-                {% endfor %}
+                <div class="container">
+
+                    <div  style="width: 250px;" class="well">
+                        <a id="toggler" href="#" data-toggle="collapse" class="list-group-item text-info font-weight-bold text-center" data-target="#data-{{ loop.index }}">
+                            Image Indentified
+                        </a>
+
+                        <div id="data-{{ loop.index }}" class="collapse in">
+                            <ul class="list-group">
+                            {% for texts in imagedetails.classes.image_entity %}
+                                <li class="list-group-item text-left" style="width: 250px;">{{texts.Entity}}<span class="badge float-right" style="margin-left:1px;border: 2px solid gray;border-radius: 25px;">{{texts.confidence}}</span> </li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="container">
+                        
+                    <div  style="width: 250px;" class="well">
+                        <a id="toggler2" href="#" data-toggle="collapse" class="list-group-item text-info font-weight-bold text-center" data-target="#dataWeb-{{ loop.index }}">
+                            Web-Results
+                        </a>
+
+                        <div id="dataWeb-{{ loop.index }}" class="collapse in">
+                                <ul class="list-group">
+                            {% for texts in imagedetails.classes.image_web_entity %}
+                            
+                                <li class="list-group-item text-left" style="width: 250px;" >{{texts.Entity}}<span class="badge float-right" style="margin-left:1px;border: 2px solid gray;border-radius: 25px;">{{texts.confidence}}</li>
+                            
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+
             </td>
             </td>
         </tr>
