@@ -23,8 +23,10 @@
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script>
-        
-        </script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover(); 
+            });
+            </script>
 </body>
 
 </html>

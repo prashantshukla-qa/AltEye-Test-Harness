@@ -79,6 +79,17 @@ def search_weburl():
         if image_details.__len__() == 0:
             flash('no Images found')
             return home()
+        for image in image_details:
+            image_web_entity=[]
+            image_entity=[]
+            for texts in image["classes"]["possible_texts"]:
+                if "(Web-Entity)" in texts["Entity"]:
+                    texts["Entity"]=texts["Entity"].replace("(Web-Entity)","")
+                    image_web_entity.append(texts)
+                else:
+                    image_entity.append(texts)
+            image["classes"]["image_web_entity"]=image_web_entity
+            image["classes"]["image_entity"]=image_entity
         return render_template('resultpage.html', data=image_details)
 
 
