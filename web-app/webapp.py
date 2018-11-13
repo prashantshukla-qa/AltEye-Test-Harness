@@ -47,7 +47,7 @@ def do_admin_login():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_weburl():
-    print(request.form)
+    # print(request.form)
     if request.method == 'GET':
         return home()
     if request.form['action'] == 'Get Alt Text':

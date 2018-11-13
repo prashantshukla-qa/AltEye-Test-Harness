@@ -13,7 +13,6 @@ class Verify_Guidelines:
         #initalizing the Image_has_text boolean var
         Image_has_Text = False;
         self.scan_Image = Image_Data_Scanner.Image_Scanner(Threshold)
-        print("Detecting Image....")
         list_of_entities = self.scan_Image.Scan_Image(url)
         Image_has_Text = self.scan_Image.is_Text_Present_In_Image()
         #self.scan_Image_via_Image_AI = Image_prediction.Predict_Image(Threshold, model,CustomModel,CustomJson)
@@ -53,9 +52,9 @@ class Verify_Guidelines:
                    result_check_for_vicinity = "GREEN"
               
             if result_check_for_vicinity == "GREEN":
-                classes["result"] = "GREEN:: alt text was not found but it seems content if picture has relevance with vicinity text"
+                classes["result"] = "alt text was not found but caption may convey the image information "
             else:
-                classes["result"] = "RED:: alt text was not found and it seems content of picture has no relvance with vicinity text"
+                classes["result"] = "alt text was not found and  caption may not be convying the image information "
 
         classes["text_classes"] = classesFromText
         for item in list_of_entities:
@@ -80,5 +79,4 @@ class Verify_Guidelines:
                 unique_keys.append(item['Entity'])
                 unique_lists.append(item)
         classes["possible_texts"]=unique_lists
-        print(classes["possible_texts"])
         return classes

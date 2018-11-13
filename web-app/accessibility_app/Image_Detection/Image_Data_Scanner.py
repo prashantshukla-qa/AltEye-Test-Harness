@@ -28,7 +28,6 @@ class Image_Scanner:
             self.data_dict = self.req.get_Image_Information_from_vision_api(
                 url)
         try:
-            print("Here...1")
             for data_list in self.data_dict["responses"][0]["labelAnnotations"]:
                 if data_list['description'] in "text":
                     self.is_text_present_in_Image = True

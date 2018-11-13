@@ -46,12 +46,10 @@ class Google_API_Request:
                           Google_API_Request.key,
                           data=encoded_body)
         json_data = json.loads(r.text)
-        print(json_data)
         if 'error' in json_data['responses'][0]:
             if json_data['responses'][0]['error']['code'] == 14 or json_data['responses'][0]['error']['code'] == 3:
                 encoded_Image=ImageSave.save_Image_from_url_get_encoded_content(Image_url,os.path.basename(Image_url))
                 json_data=self.get_Image_Information_from_vision_api_by_upload_file(encoded_Image)
-        print(json_data)
         return json_data
 
     def get_Image_Information_from_vision_api_by_upload_file(self,
@@ -83,5 +81,4 @@ class Google_API_Request:
                           Google_API_Request.key,
                           data=encoded_body)
         json_data = json.loads(r.text)
-        print(json_data)
         return json_data

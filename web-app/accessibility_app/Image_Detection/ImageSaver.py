@@ -11,7 +11,6 @@ class ImageSave:
     
     @staticmethod 
     def save_Image_from_url_get_encoded_content(url, name):
-        print("Saving Image offline")
         dir_path = os.path.dirname(os.path.realpath(__file__+"/../../"))
         urllib.urlretrieve(
             url, dir_path+"/static/images/retrieved_images/"+name)
