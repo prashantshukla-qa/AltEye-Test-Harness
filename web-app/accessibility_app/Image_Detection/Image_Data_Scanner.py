@@ -47,6 +47,8 @@ class Image_Scanner:
                     text = self.data_dict["responses"][0]["fullTextAnnotation"]['text']
                     text_from_Image_list = text.split("\n")
                     for eachtext in text_from_Image_list:
+                        if eachtext=="":
+                            continue
                         self.text_from_Image.append({'Entity': eachtext,
                                                      'confidence': self.match_threshhold})
         except KeyError as error:
@@ -56,7 +58,9 @@ class Image_Scanner:
                 return [{'Entity': "None:Error Occured", 'confidence': 0, }]
             else:
                 return result_set
-
+        for each_data in result_set:
+            if each_data['Entity']=="":
+                result_set.remove(each_data)
         return result_set
 
     def get_Text_list_From_Image(self):

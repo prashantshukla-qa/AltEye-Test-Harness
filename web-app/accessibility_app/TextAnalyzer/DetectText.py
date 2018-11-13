@@ -37,5 +37,8 @@ class DetectText:
                 classFromText.append(token.text)
 
         classFromText = [a.lower() for a in classFromText]
+        for text in classFromText:
+            if text=="":
+                classFromText.remove(text)
         classFromText = set(classFromText)
         return classFromText
