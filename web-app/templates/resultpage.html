@@ -18,7 +18,12 @@
                 <p>{{ imagedetails.alt }}</p>
             </td>
             <td style="text-align: center">
-                <p style="color: {{imagedetails.classes.result}}">{{imagedetails.classes.result}}</p>
+                {% if "GREEN" not in  imagedetails.classes.result and "RED" not in  imagedetails.classes.result %}
+                <p class="text-danger font-weight-bold">WARNING</p>
+                <p class="text-info">{{imagedetails.classes.result}}</p>
+                {% else %}
+                <p class="font-weight-bold" style="color: {{imagedetails.classes.result}}">{{imagedetails.classes.result}}</p>
+                {% endif %}
             </td>
             <td style="text-align: left">
                 <div class="container">
