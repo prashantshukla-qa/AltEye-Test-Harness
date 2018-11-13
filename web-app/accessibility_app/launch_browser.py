@@ -25,7 +25,7 @@ class PageParser:
             self.driver.get('http://' + self.url)
         return self
 
-    def get_images_and_alt_text(self,width=50,height=50):
+    def get_images_and_alt_text(self, width=50,  height=50, imageCount = 4):
         image_details = []
         image_elements = self.driver.find_elements_by_xpath('//img')
         iframes = self.driver.find_elements_by_xpath('//iframe')
@@ -37,20 +37,23 @@ class PageParser:
         print(image_elements)
         if image_elements.__len__() == 0:
             pass
-
-        index = 0
-        for index_bak, element in enumerate(image_elements):
+        index = 0    
+        for index_enum, element in enumerate(image_elements):
                 if (element.is_displayed()) and element.size['height'] > height and element.size['width'] > width: 
                     print(element.get_attribute("src")) 
                     image_details.append(\
                         {"src": element.get_attribute("src"),
                             "alt": element.get_attribute("alt"),
-                            "vicinity_text": element.find_element_by_xpath("..").text,
+                            "vicinity_text": element.find_element_by_xpath("../../..").text,
                             "current_time": time.time()})
+                    index += 1
+                if index == imageCount:
+                    break
+        self.driver.quit()
         return image_details
 
-    def get_vision_feedback(self,model=1,Threshold=60,width=50,height=50):
-        image_details = self.get_images_and_alt_text(width,height)
+    def get_vision_feedback(self,model=1,Threshold=60,width=50,height=50, imageCount = 4):
+        image_details = self.get_images_and_alt_text(width,height, imageCount)
         modelDict={"1":"DenseNet","2":"ResNet","3":"SqueezeNet","4":"InceptionV3"}
 
         for index, element in enumerate(image_details):
@@ -62,5 +65,6 @@ class PageParser:
                 index]["alt"],image_details[index]["vicinity_text"],Threshold,modelDict[str(model)])
             image_details[index]['classes'] = classes
         return image_details
+
     def get_driver_instance(self):
         return self.driver

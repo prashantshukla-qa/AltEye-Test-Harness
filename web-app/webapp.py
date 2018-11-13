@@ -50,16 +50,11 @@ def search_weburl():
     print(request.form)
     if request.method == 'GET':
         return home()
-    # if "wikipedia" not in request.form['test-url']:
-    #     flash('This demo works only on Wikipedia!!!')
-    #     return home()
     if request.form['action'] == 'Get Alt Text':
         image_details = PageParser("chrome", request.form['test-url'])\
             .launch_browser().get_images_and_alt_text()
         if image_details.__len__() == 0:
             flash("no Images found")
-            # flash('Either \'infobox\' or \'image in infobox\' \
-            #     is absent from the webpage!!!')
             return home()
         return render_template('resultpage-alt.html', data=image_details)
     if request.form['action'] == 'Test Alt Text Relevancy':
@@ -67,15 +62,18 @@ def search_weburl():
         Threshold = request.form['Threshold']
         width = request.form['width']
         height = request.form['height']
+        imageCount = request.form['imageCount']
         if Threshold == '':
             Threshold = 60
         if width == '':
             width = 50
         if height == '':
             height = 50
+        if imageCount == '':
+            imageCount = 4
 
         image_details = PageParser("chrome", request.form['test-url'])\
-            .launch_browser().get_vision_feedback(modelValue, int(Threshold), int(width), int(height))
+            .launch_browser().get_vision_feedback(modelValue, int(Threshold), int(width), int(height), int(imageCount))
         if image_details.__len__() == 0:
             flash('no Images found')
             return home()

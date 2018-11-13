@@ -13,7 +13,7 @@ class Verify_Guidelines:
         #initalizing the Image_has_text boolean var
         Image_has_Text = False;
         self.scan_Image = Image_Data_Scanner.Image_Scanner(Threshold)
-        print("using google API to detect Image")
+        print("Detecting Image....")
         list_of_entities = self.scan_Image.Scan_Image(url)
         Image_has_Text = self.scan_Image.is_Text_Present_In_Image()
         #self.scan_Image_via_Image_AI = Image_prediction.Predict_Image(Threshold, model,CustomModel,CustomJson)
