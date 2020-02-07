@@ -5,7 +5,7 @@ from .ImageSaver import ImageSave
 
 
 class Google_API_Request:
-    key = "AIzaSyD0NDVKg2A9nwgRCg2KpLLK-eyDKCMQbBc"
+    key = "AIzaSyCBvOYlFE63lhiRijCMprInXj5Kqf9B12c"
     url = "https://vision.googleapis.com/v1/images:annotate"
 
     def get_Image_Information_from_vision_api(self, Image_url):

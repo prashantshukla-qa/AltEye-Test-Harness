@@ -1,0 +1,9 @@
+Flask==1.1.1
+imageai==2.1.5
+lxml==4.5.0
+numpy==1.18.1
+requests==2.22.0
+scipy==1.4.1
+selenium==3.141.0
+spacy==2.2.3
+tensorflow==2.0.0
